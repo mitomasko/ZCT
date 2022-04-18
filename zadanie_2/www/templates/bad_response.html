@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=BenchNine&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" type="text/css" href="../static/style.css">
+        <title>Stars</title>  <!--TODO Interesting title s-->
+    </head>
+    <style>
+        body {
+        font-size:40px;
+        background-color:black;
+        color:white;
+          position: relative; /* usually the parent, in this case the body element, has position relative so that the absolute positioned child is positioned relative to it */
+          height: 100vh; /* 100% of the viewport height */
+          margin: 0; /* recommended */
+        }
+        
+        h1 {
+        
+         position: absolute; /* taken out of the normal flow of the document */
+         top: 50%; /* moved down by 50% of the screen height */
+         transform: translateY(-50%); /* moved back up (Y axis) by half of its height to achieve the perfect center */
+         width: 100%; /* needs to be defined to keep the default block behavior */
+         text-align: center;
+         margin: 0; /* again, for perfect center */
+        }
+        </style>
+    <body style="background-color: black; text-align: center;">
+        
+        <h1 style="font-size: 5rem; color: white;">Something bad happend :(</h1>
+
+    </body>
+</html>

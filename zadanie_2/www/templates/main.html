@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css2?family=BenchNine&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../static/style.css">
+        <link rel="shortcut icon" href="favicon.ico" />
+        <title>Stars</title>  <!--TODO Interesting title s-->
+</head>
+    <body>
+        <div id="header">
+            <p class="header_text">STARS</p>
+            <div class="title-container">
+                <h1 class="title-text">Find your star</h1>
+            </div>
+        </div>
+        <div id="body">
+            <div id="input-form" class="container">
+                <form action ="/get_data" method="POST" class="form">
+                    <div class="form-section">
+                        <div class="f1-element">
+                            <label for="temperature">
+                                Temperature (K) 
+                                <div class="tooltip">
+                                    <img src="../static/pic/info.png">
+                                    <span class="tooltiptext">The effective temperature of a body such as a star or planet is the temperature of a black body that would emit the same total amount of electromagnetic radiation.</span>
+                                </div>
+                            </label>
+                            <input type="text" id="temperature" name="temperature" class="form-element" pattern="^-?[0-9][0-9,\.]+$" title="Only numbers are allowed"><br>
+                        </div>
+                        <div class="f1-element">
+                            <label for="luminosity">
+                                Luminosity (L/Lo)
+                                <div class="tooltip">
+                                    <img src="../static/pic/info.png">
+                                    <span class="tooltiptext">In astronomy, luminosity is the total amount of electromagnetic energy emitted per unit of time by a star, galaxy, or other astronomical object.</span>
+                                </div>
+                            <input type="text" id="luminosity" name="luminosity" class="form-element" pattern="^-?[0-9][0-9,\.]+$" title="Only numbers are allowed"><br>
+                        </div>
+                        <div class="f1-element">
+                            <label for="absolute-magnitude">
+                                Magnitude (Mv) 
+                                <div class="tooltip">
+                                    <img src="../static/pic/info.png">
+                                    <span class="tooltiptext">Absolute magnitude (M) is a measure of the luminosity of a celestial object, on an inverse logarithmic astronomical magnitude scale.</span>
+                                </div>
+                            <input type="text" id="absolute-magnitude" name="absolute-magnitude" class="form-element" pattern="^-?[0-9][0-9,\.]+$" title="Only numbers are allowed"><br>
+                        </div>
+                        <div class="f1-element">
+                            <label for="radius">
+                                Radius (R/Ro) 
+                                <div class="tooltip">
+                                    <img src="../static/pic/info.png">
+                                    <span class="tooltiptext">In classical geometry, a radius of a circle or sphere is any of the line segments from its center to its perimeter, and in more modern usage, it is also their length.</span>
+                                </div>
+                            <input type="text" id="radius" name="radius" class="form-element" pattern="^-?[0-9][0-9,\.]+$" title="Only numbers are allowed"><br>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="f1-element">
+                            <div class="tooltip">
+                                <img src="../static/pic/info.png">
+                                <span class="tooltiptext">Stars have different colors, which are indicators of temperature.</span>
+                            </div>
+                            <div class="box">
+                                <!-- <label for="color">Color</label> -->
+                                <select id="color" class="" name="color">
+                                    <option value="hide" selected style="display:none;">-- Star Color --</option>
+                                    <option value="Red">Red</option>
+                                    <option value="White">White</option>
+                                    <option value="Blue">Blue</option>
+                                    <option value="Orange">Orange</option>
+                                    <option value="Yellowish">Yellowish</option>
+                                    <option value="Whitish">Whitish</option>
+                                    <option value="Pale yellow">Pale yellow</option>
+                                    <option value="Blue-White">Blue-White</option>
+                                    <option value="Yellow-White">Yellow-White</option>
+                                    <option value="Orange-Red">Orange-Red</option>
+                                    <option value="White-Yellw">White-Yellw</option>
+                                    <option value="Pale yellow orange">Pale yellow orange</option>
+                                </select><br>
+                            </div>
+                        </div>
+                        <div class="f1-element">
+                            <div class="tooltip">
+                                <img src="../static/pic/info.png">
+                                <span class="tooltiptext">The Morgan–Keenan (MK) system is both the easiest to master, and the one that makes the most sense to amateur observers.</span>
+                            </div>
+                            <div class="box">
+                                <!-- <label for="spectral-class">Spectral Class</label> -->
+                                <select id="star-type" class="" name="star-type">
+                                    <option value="hide" selected style="display:none;">-- Star Type --</option>
+                                    <option value="0">Brown Dwarf</option>
+                                    <option value="1">Red Dwarf</option>
+                                    <option value="2">White Dwarf</option>
+                                    <option value="3">Main Sequence</option>
+                                    <option value="4">Supergiant</option>
+                                    <option value="5">Hypergiant </option>
+                                </select><br>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="button" type="submit"><span>Send to analyze </span></button>
+                </form>
+            </div>
+            <div class="his_tab">
+                <h1 class="hist_title">History</h1>
+                <table class="hist_table">
+                    <div class="history">    
+                        <thead>
+                            <tr>
+                            <th class="el">Temperature</th>
+                            <th class="el">Luminosity</th>
+                            <th class="el">Magnitude</th>
+                            <th class="el">Radius</th>
+                            <th class="el">Star Color</th>
+                            <th class="el">Star Type</th>
+                            <th class="el">Predicted Spectral Class</th>
+                            </tr>
+                        </thead>
+                        {% for pred in pred_history %}
+                        <tr class="data">    
+                            <td class="el">{{ pred.temperature }} K</td>
+                            <td class="el">{{ pred.luminosity }} L/Lo</td>
+                            <td class="el">{{ pred.radius }} R/Ro</td>
+                            <td class="el">{{ pred.absolute_magnitude }} Mv</td>
+                            <td class="el">{{ pred.star_color }}</td>
+                            <td class="el">{{ pred.star_type }}</td>
+                            <td class="el pred">{{ pred.spectral_class }}</td>
+                        </tr> 
+                        {% endfor %}
+                    </div>
+                </table>
+            </div>
+        </div>
+
+    <footer id="footer">
+    <div class="footer-top">
+        <div class="footer-links">
+            <h4>Dataset</h4>
+            <ul>
+              <li style="list-style-type: None;">Star dataset to predict star types from <a href="https://www.kaggle.com/deepu1109/star-dataset">kaggle.com</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Contact</h4>
+            <p>
+             <strong>Martin Jenigár  | Email:</strong> martin.jenigar@student.tuke.sk<br>
+             <strong>Zsolt Pankulics | Email:</strong> zsolt.pankulics@student.tuke.sk<br>
+             <strong>Samuel Široký   | Email:</strong> samuel.siroky@student.tuke.sk<br>
+             <strong>Jozef Kondáš    | Email:</strong> jozef.kondas@student.tuke.sk<br>
+            </p>
+
+        </div>
+        <div class="footer-services">
+            <h4>Services</h4>
+            <p>
+             <a class=anchor_padding href="https://gitlab.cit.fei.tuke.sk/zp481sy/zct_allpain"><strong><img src="../static/pic/gitlab-logo-gray-rgb.png" height="50"></a>
+             <a class=anchor_padding href="https://aws.amazon.com/what-is-cloud-computing"><img src="https://d0.awsstatic.com/logos/powered-by-aws-white.png" alt="Powered by AWS Cloud Computing" height="50" ></a>
+             <a class=anchor_padding href="https://portal.azure.com/#home/"><img src="https://img.icons8.com/color/48/000000/azure-1.png"/></a><br>
+            </p>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2020 <strong>Project created by team: All pain, No gain</strong>, Technical University of Košice
+      </div>
+  </footer>
+</body>
+</html>
